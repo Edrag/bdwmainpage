@@ -1,44 +1,72 @@
-.App {
+.Menu {
+  margin-top: 1%;
   text-align: center;
+  margin-bottom: 2%;
+  background-color: darkslategrey;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.mainMenu {
-  width: 50px;
+.menuButton {
+  margin: .5%;
+  width: auto;
   height: 50px;
   border-radius: 2px;
+}
+
+html {
+  background-color: teal;
+}
+
+.pageHeading {
+  margin: 1%;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: lightgrey;
+}
+
+.banner {
+  display: block;
+  max-width: 100%;
+}
+
+h2 {
+  color: white;
+  text-align:left;
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: lightgrey;
+  margin: 0.5% auto 0 6%;
+
+}
+
+.logo {
+  display: block;
+  position: absolute;
+  max-width: 20%;
+  max-height: 2cm;
+}
+
+.overviewDiv {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  min-height: 5%;
+  min-width: 20%;
+  max-width: 90%;
+  margin: 0.5rem 5% 5rem 5%;
+  text-align: center;
+  background-color: darkslategrey;
+}
+
+.tempBox {
+  display: inline-block;
+  background-color: lightgrey;
+  margin: 1rem;
+  min-width: 10%;
+  min-height: 5rem;
+  max-width: 5cm;
+  text-align: center;
+  border: solid 1px white;
+  color:c;
 }
