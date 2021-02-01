@@ -21,7 +21,7 @@ class App extends React.Component {
   };
 
   home = () => {
-    window.location.href='www.bdw.site';
+    window.location.href='/';
   };
 
   componentDidMount = () => {
