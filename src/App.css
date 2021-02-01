@@ -2,7 +2,9 @@
   margin-top: 1%;
   text-align: center;
   margin-bottom: 2%;
-  background-color: darkslategrey;
+  background-color: dimgray;
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgrey;
 }
 
 .menuButton {
@@ -13,7 +15,7 @@
 }
 
 html {
-  background-color: teal;
+  background-color: darkslategrey;
 }
 
 .pageHeading {
@@ -25,9 +27,19 @@ html {
   text-shadow: lightgrey;
 }
 
+.bannerDiv {
+  display: flex;
+  justify-content: center;
+}
+
 .banner {
-  display: block;
-  max-width: 100%;
+  max-width: 100%;  
+}
+
+@media only screen and (min-width: 800px) {
+  .banner {
+    max-width: 1600px;
+  }
 }
 
 h2 {
@@ -40,23 +52,28 @@ h2 {
 
 }
 
+.logoDiv {
+  display: flex;
+  background-color: black;
+  border-bottom: 2px solid dimgray;
+}
+
 .logo {
-  display: block;
-  position: absolute;
+  margin-left: 2%;
   max-width: 20%;
-  max-height: 2cm;
+  max-height: 1.5cm;
 }
 
 .overviewDiv {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   border: 2px solid black;
   min-height: 5%;
   min-width: 20%;
   max-width: 90%;
   margin: 0.5rem 5% 5rem 5%;
   text-align: center;
-  background-color: darkslategrey;
+  background-color: dimgray;
 }
 
 .tempBox {
@@ -65,8 +82,18 @@ h2 {
   margin: 1rem;
   min-width: 10%;
   min-height: 5rem;
-  max-width: 5cm;
+  max-width: auto;
   text-align: center;
   border: solid 1px white;
   color:c;
+}
+
+td {
+  text-align: left;
+}
+
+.dataCell {
+  padding-left: 1rem;
+  color: rgb(31, 26, 75);
+  font-weight: bold;
 }
