@@ -10,9 +10,13 @@ class App extends React.Component {
     this.state={
       tempSens1Deg:'',
       tempSens1Time:'',
+      tempSens2Deg:'',
+      tempSens2Time:'',
+      tempSens3Deg:'',
+      tempSens3Time:'',
       intervalId:false
     }
-    this.getTempSensor1= this.getTempSensor1.bind(this);
+    this.getTempSensors= this.getTempSensors.bind(this);
     this.handleInterval = this.handleInterval.bind(this);
   }
   
@@ -25,7 +29,7 @@ class App extends React.Component {
   };
 
   componentDidMount = () => {
-    this.getTempSensor1();
+    this.getTempSensors();
     this.handleInterval();
     console.log(this.state.intervalId);
   };
@@ -36,7 +40,7 @@ class App extends React.Component {
 
   handleInterval = () =>  {
     if(!this.state.intervalId) {
-      intervalTimer = setInterval(this.getTempSensor1,60000)
+      intervalTimer = setInterval(this.getTempSensors,60000)
       this.setState({
         intervalId: true
       }) 
@@ -45,10 +49,10 @@ class App extends React.Component {
     };
   }
 
-  getTempSensor1 = async () => {
+  getTempSensors = async () => {
     try {
-      const response = await fetch(`http://192.168.1.250:1880/temp`);
-      const responseJSON = await response.json();
+      let response = await fetch(`http://192.168.1.250:1880/temp`);
+      let responseJSON = await response.json();
       if(response.ok) {
         console.log(responseJSON);
         this.setState({
@@ -56,6 +60,25 @@ class App extends React.Component {
           tempSens1Time:responseJSON.Time
         })
       }
+      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/freezer`);
+      responseJSON = await response.json();
+      if(response.ok) {
+        console.log(responseJSON);
+        this.setState({
+          tempSens2Deg:responseJSON.Temp,
+          tempSens2Time:responseJSON.Time
+        })
+      }
+      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/rte`);
+      responseJSON = await response.json();
+      if(response.ok) {
+        console.log(responseJSON);
+        this.setState({
+          tempSens3Deg:responseJSON.Temp,
+          tempSens3Time:responseJSON.Time
+        })
+      }
+
 
     } catch(error) {
       console.log(error);
@@ -79,7 +102,7 @@ class App extends React.Component {
           <h2>Packhouse Overview</h2>
           <div className="overviewDiv">
             <div className="tempBox">
-              Coldroom 1 Temp
+              Packroom Temp
               <table>
                 <tbody>
                   <tr>
@@ -89,6 +112,36 @@ class App extends React.Component {
                   <tr>
                     <td>Updated:</td>
                     <td className="dataCell">{this.state.tempSens1Time}</td>
+                  </tr>
+                </tbody>                
+              </table>
+            </div>
+            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/freezer/history`}}>
+              Freezer Temp
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Temp:</td>
+                    <td className="dataCell">{this.state.tempSens2Deg}&deg;C</td>
+                  </tr>
+                  <tr>
+                    <td>Updated:</td>
+                    <td className="dataCell">{this.state.tempSens2Time}</td>
+                  </tr>
+                </tbody>                
+              </table>
+            </div>
+            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/rte/history`}}>
+              RTE Temp
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Temp:</td>
+                    <td className="dataCell">{this.state.tempSens3Deg}&deg;C</td>
+                  </tr>
+                  <tr>
+                    <td>Updated:</td>
+                    <td className="dataCell">{this.state.tempSens3Time}</td>
                   </tr>
                 </tbody>                
               </table>

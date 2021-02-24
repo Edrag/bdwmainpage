@@ -88,6 +88,10 @@ h2 {
   color:c;
 }
 
+.tempBox:hover{
+  cursor: pointer;
+}
+
 td {
   text-align: left;
 }
