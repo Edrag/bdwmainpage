@@ -51,7 +51,7 @@ class App extends React.Component {
 
   getTempSensors = async () => {
     try {
-      let response = await fetch(`http://192.168.1.250:1880/temp`);
+      let response = await fetch(`http://192.168.1.250:1880/temp/packroom`);
       let responseJSON = await response.json();
       if(response.ok) {
         console.log(responseJSON);
@@ -60,7 +60,7 @@ class App extends React.Component {
           tempSens1Time:responseJSON.Time
         })
       }
-      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/freezer`);
+      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/rte`);
       responseJSON = await response.json();
       if(response.ok) {
         console.log(responseJSON);
@@ -69,13 +69,31 @@ class App extends React.Component {
           tempSens2Time:responseJSON.Time
         })
       }
-      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/rte`);
+      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/dispatch`);
       responseJSON = await response.json();
       if(response.ok) {
         console.log(responseJSON);
         this.setState({
           tempSens3Deg:responseJSON.Temp,
           tempSens3Time:responseJSON.Time
+        })
+      }
+      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/freezer`);
+      responseJSON = await response.json();
+      if(response.ok) {
+        console.log(responseJSON);
+        this.setState({
+          tempSens4Deg:responseJSON.Temp,
+          tempSens4Time:responseJSON.Time
+        })
+      }
+      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/rawmaterial`);
+      responseJSON = await response.json();
+      if(response.ok) {
+        console.log(responseJSON);
+        this.setState({
+          tempSens5Deg:responseJSON.Temp,
+          tempSens5Time:responseJSON.Time
         })
       }
 
@@ -101,7 +119,7 @@ class App extends React.Component {
         <div>
           <h2>Packhouse Overview</h2>
           <div className="overviewDiv">
-            <div className="tempBox">
+            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/packroom/history`}}>
               Packroom Temp
               <table>
                 <tbody>
@@ -116,8 +134,8 @@ class App extends React.Component {
                 </tbody>                
               </table>
             </div>
-            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/freezer/history`}}>
-              Freezer Temp
+            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/rte/history`}}>
+              RTE Temp
               <table>
                 <tbody>
                   <tr>
@@ -131,8 +149,8 @@ class App extends React.Component {
                 </tbody>                
               </table>
             </div>
-            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/rte/history`}}>
-              RTE Temp
+            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/dispatch/history`}}>
+            Dispatch Temp
               <table>
                 <tbody>
                   <tr>
@@ -142,6 +160,36 @@ class App extends React.Component {
                   <tr>
                     <td>Updated:</td>
                     <td className="dataCell">{this.state.tempSens3Time}</td>
+                  </tr>
+                </tbody>                
+              </table>
+            </div>
+            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/freezer/history`}}>
+              Freezer Temp
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Temp:</td>
+                    <td className="dataCell">{this.state.tempSens4Deg}&deg;C</td>
+                  </tr>
+                  <tr>
+                    <td>Updated:</td>
+                    <td className="dataCell">{this.state.tempSens4Time}</td>
+                  </tr>
+                </tbody>                
+              </table>
+            </div>
+            <div className="tempBox" onClick={()=>{window.location.href=`http://192.168.1.250:1880/packhouse/temp/rawmaterial/history`}}>
+              Raw Material Temp
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Temp:</td>
+                    <td className="dataCell">{this.state.tempSens5Deg}&deg;C</td>
+                  </tr>
+                  <tr>
+                    <td>Updated:</td>
+                    <td className="dataCell">{this.state.tempSens5Time}</td>
                   </tr>
                 </tbody>                
               </table>
