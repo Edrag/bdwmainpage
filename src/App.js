@@ -1,4 +1,6 @@
 import React from 'react';
+import {LineChart, Line} from 'recharts';
+
 import './App.css';
 import Banner from './main_house_berry_orchard.jpg';
 import Logo from './BdW_logo_pruple_50.png';
@@ -14,10 +16,16 @@ class App extends React.Component {
       tempSens2Time:'',
       tempSens3Deg:'',
       tempSens3Time:'',
+      tempSens4Deg:'',
+      tempSens4Time:'',
+      tempSens5Deg:'',
+      tempSens5Time:'',
+      tempHist:'',
       intervalId:false
     }
     this.getTempSensors= this.getTempSensors.bind(this);
     this.handleInterval = this.handleInterval.bind(this);
+
   }
   
   redirect = () => {
@@ -51,7 +59,7 @@ class App extends React.Component {
 
   getTempSensors = async () => {
     try {
-      let response = await fetch(`http://192.168.1.250:1880/temp/packroom`);
+      let response = await fetch(`http://192.168.1.250:1880/packhouse/temp/packroom`);
       let responseJSON = await response.json();
       if(response.ok) {
         console.log(responseJSON);
@@ -88,6 +96,7 @@ class App extends React.Component {
         })
       }
       response = await fetch(`http://192.168.1.250:1880/packhouse/temp/rawmaterial`);
+      console.log(response);
       responseJSON = await response.json();
       if(response.ok) {
         console.log(responseJSON);
@@ -96,7 +105,15 @@ class App extends React.Component {
           tempSens5Time:responseJSON.Time
         })
       }
-
+      response = await fetch(`http://192.168.1.250:1880/packhouse/temp/rawmaterial/history`);
+      console.log(response);
+      responseJSON = await response.json();
+      if(response.ok) {
+        console.log(responseJSON);
+        this.setState({
+          tempHist:responseJSON
+        })
+      }
 
     } catch(error) {
       console.log(error);
@@ -193,8 +210,13 @@ class App extends React.Component {
                   </tr>
                 </tbody>                
               </table>
-            </div>
+            </div>            
           </div>
+          <div  className="tempBox"  >
+              <LineChart width={400} height={400} data={this.state.tempHist}>
+                <Line type="monotone" dataKey="Temp" stroke="#8884d8" />
+              </LineChart>
+            </div>
         </div>
       </div>
     );
